@@ -5,9 +5,14 @@ pipeline {
         jdk 'JDK'
     }
     stages {
-        stage ('Build') {
+        stage ('Test') {
             steps {
                 sh 'mvn clean install' 
+            }
+        }
+        stage ('Generate Report') {
+            steps {
+                sh 'mvn clean cluecumber-report:reporting' 
                 publishHTML target: [
                     allowMissing: false,
                     alwaysLinkToLastBuild: false,
