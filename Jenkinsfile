@@ -7,11 +7,11 @@ pipeline {
     stages {
         stage ('Test') {
             steps {
-                sh 'mvn clean install' 
+                sh 'mvn clean test' 
             }
             post {
                 always {
-                    sh 'mvn clean cluecumber-report:reporting'
+                    sh 'mvn cluecumber-report:reporting'
                     publishHTML target: [
                     allowMissing: false,
                     alwaysLinkToLastBuild: false,
