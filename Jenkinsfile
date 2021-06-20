@@ -9,11 +9,10 @@ pipeline {
             steps {
                 sh 'mvn clean install' 
             }
-        }
-        stage ('Generate Report') {
-            steps {
-                sh 'mvn clean cluecumber-report:reporting' 
-                publishHTML target: [
+            post {
+                always {
+                    sh 'mvn clean cluecumber-report:reporting'
+                    publishHTML target: [
                     allowMissing: false,
                     alwaysLinkToLastBuild: false,
                     keepAll: true,
@@ -21,6 +20,7 @@ pipeline {
                     reportFiles: 'index.html',
                     reportName: 'Cucumber Advance report'
                 ]
+                }
             }
         }
     }
